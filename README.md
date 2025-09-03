@@ -4,12 +4,14 @@
 
 Aspose.Cells.Grid for .NET  provides GUI based .NET controls.
 
-[Aspose.Cells.GridJs](https://www.nuget.org/packages/Aspose.Cells.GridJs)    ![Nuget](https://img.shields.io/nuget/v/Aspose.Cells.GridJs ) ![Nuget](https://img.shields.io/nuget/dt/Aspose.Cells.GridJs ) ![GitHub](https://img.shields.io/github/license/aspose-cells/Aspose.Cells-for-.NET)
-[Aspose.Cells.GridDesktop](https://www.nuget.org/packages/Aspose.Cells.GridDesktop)    ![Nuget](https://img.shields.io/nuget/v/Aspose.Cells.GridDesktop ) ![Nuget](https://img.shields.io/nuget/dt/Aspose.Cells.GridDesktop ) ![GitHub](https://img.shields.io/github/license/aspose-cells/Aspose.Cells-for-.NET)
-[Aspose.Cells.GridWeb](https://www.nuget.org/packages/Aspose.Cells.GridWeb)    ![Nuget](https://img.shields.io/nuget/v/Aspose.Cells.GridWeb ) ![Nuget](https://img.shields.io/nuget/dt/Aspose.Cells.GridWeb ) ![GitHub](https://img.shields.io/github/license/aspose-cells/Aspose.Cells-for-.NET)
+[Aspose.Cells.GridJs](https://www.nuget.org/packages/Aspose.Cells.GridJs)  |  ![Nuget](https://img.shields.io/nuget/v/Aspose.Cells.GridJs ) ![Nuget](https://img.shields.io/nuget/dt/Aspose.Cells.GridJs ) ![GitHub](https://img.shields.io/github/license/aspose-cells/Aspose.Cells-for-.NET)
+[Aspose.Cells.GridDesktop](https://www.nuget.org/packages/Aspose.Cells.GridDesktop)  |  ![Nuget](https://img.shields.io/nuget/v/Aspose.Cells.GridDesktop ) ![Nuget](https://img.shields.io/nuget/dt/Aspose.Cells.GridDesktop ) ![GitHub](https://img.shields.io/github/license/aspose-cells/Aspose.Cells-for-.NET)
+[Aspose.Cells.GridWeb](https://www.nuget.org/packages/Aspose.Cells.GridWeb)  |  ![Nuget](https://img.shields.io/nuget/v/Aspose.Cells.GridWeb ) ![Nuget](https://img.shields.io/nuget/dt/Aspose.Cells.GridWeb ) ![GitHub](https://img.shields.io/github/license/aspose-cells/Aspose.Cells-for-.NET)
 
 [Aspose.Cells.GridJs](https://docs.aspose.com/cells/net/aspose-cells-gridjs/basics/) is specifically designed for .NET Core based web applications.
-[Aspose.Cells.GridDesktop](https://docs.aspose.com/cells/net/how-to-use-aspose-cells-griddesktop/) supports desktop applications   
+
+[Aspose.Cells.GridDesktop](https://docs.aspose.com/cells/net/how-to-use-aspose-cells-griddesktop/) supports desktop applications.   
+
 [Aspose.Cells.GridWeb](https://docs.aspose.com/cells/net/how-to-use-aspose-cells-gridweb-with-net-core/) is specifically designed for .NET/.NEt Core based web applications.
 
 Gird controls allow to import/export Excel files, manipulate data & formatting, customize grid design and layout, manage multiple worksheets, create and calculate Excel formulas and numerous other Excel-like operations.
