@@ -1251,7 +1251,6 @@
     <Content Include="js\bootstrap\bootstrap-vertical-tabs\package.json" />
     <Content Include="js\bootstrap\bootstrap-vertical-tabs\README.md" />
     <Content Include="Site1.Master" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Start\" />

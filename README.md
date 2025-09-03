@@ -2,7 +2,7 @@
 
 [Aspose.Cells for .NET](https://products.aspose.com/cells/net) is an Excel Spreadsheet Programming API to speed up spreadsheet management and processing tasks. Excel .NET API supports to build cross-platform applications having the ability to generate, modify, convert, render and print spreadsheets.
 
-Aspose.Cells.Grid for .NET  provides GUI based .NET controls.
+Aspose.Cells.Grid for .NET is powered by Aspose.Cells APIs and provides GUI-based .NET controls for building cross-platform web applications and desktop applications to edit and view Excel and spreadsheet files.
 
 Name | Package info
 --------- | -----------

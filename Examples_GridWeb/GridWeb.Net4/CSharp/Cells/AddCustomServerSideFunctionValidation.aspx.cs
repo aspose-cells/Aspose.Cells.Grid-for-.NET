@@ -11,7 +11,7 @@ using Aspose.Cells.GridWeb.Data;
 namespace Aspose.Cells.GridWeb.Examples
 {   
     [Serializable]
-    class MyServerValidation : GridCustomServerValidation, ISerializable
+    class MyServerValidation : GridCustomServerValidation 
     {
         public string Validate(GridWorksheet sheet, int row, int col, string value)
         {
