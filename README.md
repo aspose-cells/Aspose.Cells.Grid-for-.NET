@@ -14,7 +14,7 @@ Name | Package info
 
 [Aspose.Cells.GridDesktop](https://docs.aspose.com/cells/net/how-to-use-aspose-cells-griddesktop/) supports desktop applications.   
 
-[Aspose.Cells.GridWeb](https://docs.aspose.com/cells/net/how-to-use-aspose-cells-gridweb-with-net-core/) is specifically designed for .NET/.NEt Core based web applications.
+[Aspose.Cells.GridWeb](https://docs.aspose.com/cells/net/how-to-use-aspose-cells-gridweb-with-net-core/) is specifically designed for Asp .NET/.NET Core based web applications.
 
 Gird controls allow to import/export Excel files, manipulate data & formatting, customize grid design and layout, manage multiple worksheets, create and calculate Excel formulas and numerous other Excel-like operations.
 
@@ -26,9 +26,9 @@ Gird controls allow to import/export Excel files, manipulate data & formatting, 
 
 Directory | Description
 --------- | -----------
-[Examples of GridJs](Examples_GridJs)  |example that help you learn and use Aspose.Cells.GridJs to build .net core web application of Excel editor based on canvas rendering. 
-[Examples of GridDesktop](Examples_GridDesktop)  |example that help you learn and use Aspose.Cells.GridDesktop to build desktop application of Excel editor.
-[Examples of GridWeb](Examples_GridWeb)  |example that help you learn and use Aspose.Cells.GridWeb to build asp .net/asp .net core web application of Excel editor based on html dom. 
+[Examples of GridJs](Examples_GridJs)  |example that help you learn and use Aspose.Cells.GridJs to build .NET Core web application of Excel editor based on canvas rendering. 
+[Examples of GridDesktop](Examples_GridDesktop)  |example that help you learn and use Aspose.Cells.GridDesktop to build .NET desktop application of Excel editor.
+[Examples of GridWeb](Examples_GridWeb)  |example that help you learn and use Aspose.Cells.GridWeb to build Asp .NET/.NET Core web application of Excel editor based on html dom. 
  
  
 
