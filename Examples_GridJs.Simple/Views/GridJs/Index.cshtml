@@ -1,0 +1,32 @@
+@{
+    Layout = null;   // Simple page without the default layout
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>GridJs Spreadsheet Demo</title>
+    <!-- jQuery & jQuery UI -->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <!-- JSZip (required by gridjs‑spreadsheet for export) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
+    <!-- GridJs Spreadsheet UI -->
+    <link rel="stylesheet" href="https://unpkg.com/gridjs-spreadsheet/xspreadsheet.css" />
+    <script src="https://unpkg.com/gridjs-spreadsheet/xspreadsheet.js"></script>
+    <!-- Custom demo script -->
+    <script src="~/js/gridjs-demo.js"></script>
+    <style>
+        /* Full‑screen container */
+        #gridjs-demo-uid {
+            width: 100%;
+            height: 95vh;
+        }
+    </style>
+</head>
+<body>
+    <!-- GridJs UI placeholder -->
+    <div id="gridjs-demo-uid"></div>
+</body>
+</html>
