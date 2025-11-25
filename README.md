@@ -19,14 +19,15 @@ Name | Package info
 Gird controls allow to import/export Excel files, manipulate data & formatting, customize grid design and layout, manage multiple worksheets, create and calculate Excel formulas and numerous other Excel-like operations.
 
 <p align="center">
-  <a title="Download ZIP" href="https://github.com/aspose-cells/Aspose.Cells-for-.NET/archive/master.zip">
+  <a title="Download ZIP" href="https://github.com/aspose-cells/Aspose.Cells.Grid-for-.NET/archive/master.zip">
     <img src="http://i.imgur.com/hwNhrGZ.png" />
   </a>
 </p>
 
 Directory | Description
 --------- | -----------
-[Examples of GridJs](Examples_GridJs)  |example that help you learn and use Aspose.Cells.GridJs to build .NET Core web application of Excel editor based on canvas rendering. 
+[Example of Simple GridJs](Examples_GridJs.Simple)  |example that help you learn and use Aspose.Cells.GridJs to build .NET Core web application of Excel editor based on canvas rendering with simple and tiny code. 
+[Examples of GridJs](Examples_GridJs)  |example that help you learn and use Aspose.Cells.GridJs to build .NET Core web application of Excel editor based on canvas rendering with more features. 
 [Examples of GridDesktop](Examples_GridDesktop)  |example that help you learn and use Aspose.Cells.GridDesktop to build .NET desktop application of Excel editor.
 [Examples of GridWeb](Examples_GridWeb)  |example that help you learn and use Aspose.Cells.GridWeb to build Asp .NET/.NET Core web application of Excel editor based on html dom. 
  
