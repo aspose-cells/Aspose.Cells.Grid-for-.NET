@@ -6,8 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Aspose.Cells" Version="25.*" />
-    <PackageReference Include="Aspose.Cells.GridJs" Version="25.*" />
+    <PackageReference Include="Aspose.Cells" Version="26.*" />
+    <PackageReference Include="Aspose.Cells.GridJs" Version="26.*" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
