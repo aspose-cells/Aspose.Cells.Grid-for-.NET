@@ -146,7 +146,8 @@
             const imageuploadurl2 = "/GridJs2/AddImageByURL";
             const imagecopyurl = "/GridJs2/CopyImage";        // x.spreadsheet.locale('zh-cn');
             const lazyLoadingUrl = "/GridJs2/LazyLoadingStreamJson";
-            xs = x_spreadsheet('#gridjs-demo-uid', option).loadData(sheets).change((cdata) => {
+			const activeSheetName = jsondata.actname;
+            xs = x_spreadsheet('#gridjs-demo-uid', option).loadData(sheets,activeSheetName).change((cdata) => {
                 console.log(cdata);
                 console.log(xs.validate());
             }
@@ -219,70 +220,20 @@
             xs.setLazyLoadingUrl(lazyLoadingUrl);
             xs.setOpenFileUrl("/Home/Index");
              
-            let activeSheetName = jsondata.actname;
            
-            if (xs.bottombar.dataNames.indexOf(activeSheetName) >= 0) {
-                xs.setActiveSheetByName(activeSheetName).setActiveCell(jsondata.actrow, jsondata.actcol);
+           
+            if (activeSheetName == xs.getActiveSheetName()) {
+                xs.setActiveCell(jsondata.actrow, jsondata.actcol);
 
             } else {
-                 //some times if the active sheet is invisible or chartworksheet ,just use the first worksheet
-                activeSheetName = xs.bottombar.dataNames[0];
-                xs.setActiveSheetByName(activeSheetName).setActiveCell(0,0);
+                //some times if the active sheet is invisible or chartworksheet ,will just show the first worksheet,set A1 as active cell
+                xs.setActiveCell(0, 0);
             }
 
 
         }
 
-        function ColorReverse(OldColorValue) {
-            var OldColorValue = '0x' + OldColorValue.replace(/#/g, "");
-            var str = '000000' + (0xFFFFFF - OldColorValue).toString(16);
-            return '#' + str.substring(str.length - 6, str.length);
-        }
-        function save() {
-            if (!xs.buffer.isFinish()) {
-          alert('updating is inprogress,please try later');
-                return;
-            }
-            let datas = xs.datas;
-            delete datas.history;
-            delete datas.search;
-            delete datas.images;
-            delete datas.shapes;
-
-        var jsondata = {
-          sheetname: xs.sheet.data.name,
-          actrow: xs.sheet.data.selector.ri,
-          actcol: xs.sheet.data.selector.ci,
-          datas: xs.getUpdateDatas(),
-        };
-
-        const data = {
-          p: JSON.stringify(jsondata),
-          uid: uniqueid,
-        };
-
-
-            $.ajax({
-                url: local + '/GridJs2/Download',
-                type: 'post',
-
-                data: data,
-                success: function (datar, stutas, xhr) {
-                    console.log(datar);
-                    if (datar.startsWith('{')) {
-                        var ret = JSON.parse(datar);
-                        if (ret.err) {
-                            alert(ret.err);
-                        }
-                    } else {
-                        // window.location = local + '/GridJs2/Download2/' + datar;
-                        window.location = datar;
-                    }
-                },
-            });
-
-
-        }
+       
 
     </script>
 
