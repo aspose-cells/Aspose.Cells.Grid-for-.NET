@@ -72,11 +72,12 @@ function loadWithOption(jsondata) {
     // Extract worksheet array and filename from the server payload
     const sheets = jsondata.data;
     const filename = jsondata.filename;
+    const activeSheetName = jsondata.actname;
     // ----------------------------------------------------------------
-    // 3️⃣ Initialise GridJs and bind it to the placeholder div
+    // 3️⃣ Initialise GridJs and bind it to the placeholder div,load data and set active sheet
     // ----------------------------------------------------------------
     xs = x_spreadsheet('#gridjs-demo-uid', option)
-        .loadData(sheets)
+        .loadData(sheets, activeSheetName)
         .updateCellError(function (msg) {
             console.error("Cell update error:", msg);
         });
@@ -88,16 +89,14 @@ function loadWithOption(jsondata) {
     xs.setUniqueId(jsondata.uniqueid);
     xs.setFileName(filename);
     // ----------------------------------------------------------------
-    // 4️⃣ Set the active sheet and cell (fallback to first sheet if needed)
+    // 4️⃣ Set the active cell (fallback to A1 if needed)
     // ----------------------------------------------------------------
-    let activeSheetName = jsondata.actname;
-    if (xs.bottombar.dataNames.indexOf(activeSheetName) >= 0) {
-        xs.setActiveSheetByName(activeSheetName)
-          .setActiveCell(jsondata.actrow, jsondata.actcol);
+   
+    if (xs.getActiveSheetName() == activeSheetName)  {
+        xs.setActiveCell(jsondata.actrow, jsondata.actcol);
     } else {
-        // Fallback – first visible worksheet
-        activeSheetName = xs.bottombar.dataNames[0];
-        xs.setActiveSheetByName(activeSheetName).setActiveCell(0, 0);
+        // Fallback – set A1 as active cell
+        xs.setActiveCell(0, 0);
     }
     // ----------------------------------------------------------------
     // 5️⃣ Register image‑related and download URLs
