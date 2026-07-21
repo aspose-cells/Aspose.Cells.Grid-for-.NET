@@ -17,8 +17,8 @@ You will create a **.NET 6 MVC** application, configure the Aspose.Cells.GridJ
 | Item | Version | How to obtain |
 |------|---------|----------------|
 | .NET SDK | 6.0 or later | <https://dotnet.microsoft.com/download> |
-| Aspose.Cells | 25.\* (NuGet) | `dotnet add package Aspose.Cells --version 25.*` |
-| Aspose.Cells.GridJs | 25.\* (NuGet) | `dotnet add package Aspose.Cells.GridJs --version 25.*` |
+| Aspose.Cells | 26.\* (NuGet) | `dotnet add package Aspose.Cells --version 26.*` |
+| Aspose.Cells.GridJs | 26.\* (NuGet) | `dotnet add package Aspose.Cells.GridJs --version 26.*` |
 | Newtonsoft.Json | 13.0.1 (NuGet) | `dotnet add package Newtonsoft.Json --version 13.0.1` |
 | jQuery, jQuery‑UI, JSZip | specific versions listed in the requirement | CDN links are used in the HTML sample |
 
@@ -45,8 +45,8 @@ The generated folder structure looks like this:
 ### 1. Add Required Packages
 
 ```bash
-dotnet add package Aspose.Cells --version 25.*
-dotnet add package Aspose.Cells.GridJs --version 25.*
+dotnet add package Aspose.Cells --version 26.*
+dotnet add package Aspose.Cells.GridJs --version 26.*
 dotnet add package Newtonsoft.Json --version 13.0.1
 ```
 
