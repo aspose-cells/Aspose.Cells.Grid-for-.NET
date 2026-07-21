@@ -7,18 +7,18 @@
 This article demonstrates how to **load an Excel workbook into a web page** using the **Aspose.Cells.GridJs** library on the server side and the **gridjs‑spreadsheet** JavaScript library on the client side.  
 You will create a **.NET 6 MVC** application, configure the Aspose.Cells.GridJs service, implement a controller that returns the workbook JSON, and write the client‑side HTML/JavaScript that renders the spreadsheet and enables server‑side updates.
 
-> {{% alert color="primary" %}}
+> [!TIP]
 > This guide assumes you have a working **.NET 6 SDK** and **Node.js** installed.  
 > All code snippets are self‑contained and can be compiled and run without modification (except for the file‑system paths that you may want to adjust).
-> {{% /alert %}}
+
 
 ## Prerequisites
 
 | Item | Version | How to obtain |
 |------|---------|----------------|
 | .NET SDK | 6.0 or later | <https://dotnet.microsoft.com/download> |
-| Aspose.Cells | 25.\* (NuGet) | `dotnet add package Aspose.Cells --version 25.*` |
-| Aspose.Cells.GridJs | 25.\* (NuGet) | `dotnet add package Aspose.Cells.GridJs --version 25.*` |
+| Aspose.Cells | 26.\* (NuGet) | `dotnet add package Aspose.Cells --version 26.*` |
+| Aspose.Cells.GridJs | 26.\* (NuGet) | `dotnet add package Aspose.Cells.GridJs --version 26.*` |
 | Newtonsoft.Json | 13.0.1 (NuGet) | `dotnet add package Newtonsoft.Json --version 13.0.1` |
 | jQuery, jQuery‑UI, JSZip | specific versions listed in the requirement | CDN links are used in the HTML sample |
 
@@ -35,18 +35,18 @@ The generated folder structure looks like this:
 
 ![MVC Project Structure](./images/mvc-project-structure.png)
 
-> {{% alert color="primary" %}}
+> [!TIP]
 > Ensure the project targets **net6.0** (the default for the template).  
 > You can verify this in the `<TargetFramework>` element of **GridJsDemo.csproj**.
-> {{% /alert %}}
+
 
 ## Server‑Side Setup
 
 ### 1. Add Required Packages
 
 ```bash
-dotnet add package Aspose.Cells --version 25.*
-dotnet add package Aspose.Cells.GridJs --version 25.*
+dotnet add package Aspose.Cells --version 26.*
+dotnet add package Aspose.Cells.GridJs --version 26.*
 dotnet add package Newtonsoft.Json --version 13.0.1
 ```
 
@@ -104,9 +104,9 @@ app.MapControllerRoute(
 app.Run();
 ```
 
-> {{% alert color="primary" %}}
+> [!TIP]
 > **Important** – The folder `D:\storage\Aspose.Cells.GridJs\` must exist before you run the application, otherwise GridJs will throw a `DirectoryNotFoundException`.
-> {{% /alert %}}
+
 
 ### 3. Implement the GridJs Controller
 
@@ -169,10 +169,10 @@ namespace GridJsDemo.Controllers
 }
 ```
 
-> {{% alert color="primary" %}}
+> [!TIP]
 > The `GridJsControllerBase` already implements actions for cell updates, image handling, OLE download, etc. You only need to add the **LoadSpreadsheet** action (and optionally **Index** if you want a custom view).  
 > All URLs used by the client are automatically resolved relative to the `BaseRouteName`.
-> {{% /alert %}}
+
 
 ### 4. Add a Sample Workbook
 
@@ -222,9 +222,9 @@ Add a new folder **Views/GridJs** and create **Index.cshtml**:
 </html>
 ```
 
-> {{% alert color="primary" %}}
+> [!TIP]
 > The view uses **Layout = null** to keep the page minimal. If you prefer to use the default layout, remove the line and place the `<div id="gridjs-demo-uid"></div>` inside a section.
-> {{% /alert %}}
+
 
 ### 6. Client‑Side JavaScript (gridjs‑demo.js)
 
@@ -305,7 +305,15 @@ function loadWithOption(jsondata) {
         updateMode: 'server',
         updateUrl: updateUrl,
         // UI language (change as needed)
-        local: 'en'
+        local: 'en',
+        mode: 'read',
+        enableRedactionShape: true,
+        redactionDefaultColor: 'green',
+        redactionReasons: [
+            'Personal Information',
+            'Confidential',
+            'Secret',
+        ],
     };
 
     // Clean any previous instance
@@ -356,9 +364,7 @@ function loadWithOption(jsondata) {
 }
 ```
 
-> {{% alert color="primary" %}}
-> The script uses **jQuery** for the AJAX call and DOM ready handling. All URLs correspond to the actions provided by `GridJsControllerBase`; you do not need to implement them yourself.
-> {{% /alert %}}
+
 
 ## Running the Demo
 
@@ -377,15 +383,15 @@ function loadWithOption(jsondata) {
 3. Open a browser and navigate to **https://localhost:5001/GridJs/Index** (or the URL displayed in the console).  
    You should see the spreadsheet UI loaded with the content of **Sample.xlsx**.
 
-![Running Spreadsheet UI](./images/gridjs-ui.png)
+![Running Spreadsheet UI](./images/gridjs-ui-redaction.png)
 
 ## Common Issues & Tips
 
-{{% alert color="primary" %}}
-- **Cache directory missing** – Ensure the path set in `GridJsOptions.FileCacheDirectory` exists and the app pool identity can write to it.  
-- **CORS errors** – When hosting the client and server on different origins, enable CORS in `Program.cs`.  
-- **Large files** – GridJs converts the workbook to JSON in memory; for very large files consider increasing the server memory limit or using pagination features of the library.  
-{{% /alert %}}
+> [!TIP]
+> - **Cache directory missing** – Ensure the path set in `GridJsOptions.FileCacheDirectory` exists and the app pool identity can write to it.  
+> - **CORS errors** – When hosting the client and server on different origins, enable CORS in `Program.cs`.  
+> - **Large files** – GridJs converts the workbook to JSON in memory; for very large files consider increasing the server memory limit or using pagination features of the library.  
+ 
 
 
 
@@ -393,10 +399,11 @@ function loadWithOption(jsondata) {
 
 The complete source code for this tutorial is available in the official Aspose.Cells.GridJs GitHub repository:
 
-<https://github.com/aspose-cells/Aspose.Cells.Grid-for-.NET/tree/main/Examples_GridJs.Simple>
+<https://github.com/aspose-cells/Aspose.Cells.Grid-for-.NET/tree/main/Examples_GridJs.Redaction>
 
 ## Additional Resources
 
+* **GridJs Redaction Feature** – <https://docs.aspose.com/cells/net/aspose-cells-gridjs/how-to-use-redaction/>
 * **GridJs Server API** – <https://reference.aspose.com/cells/net/aspose.cells.gridjs>  
 * **GridJs Client API** – <https://docs.aspose.com/cells/net/aspose-cells-gridjs/how-to-use-gridjs-client-api/>
 * **GridJs‑spreadsheet NPM package** – <https://www.npmjs.com/package/gridjs-spreadsheet>
