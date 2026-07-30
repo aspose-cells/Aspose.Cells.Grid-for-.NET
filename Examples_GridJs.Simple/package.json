@@ -1,0 +1,36 @@
+{
+  "name": "aspose-gridjs-dotnet-framework-examples",
+  "private": true,
+  "workspaces": [
+    "ClientApp/react-gridjs",
+    "ClientApp/vue-gridjs",
+    "ClientApp/angular-gridjs",
+    "ClientApp/vanilla-gridjs-npm"
+  ],
+  "scripts": {
+    "setup": "npm install --workspaces --include-workspace-root",
+    "prestart": "npm run setup",
+    "start": "npm run dev",
+    "dev": "concurrently --kill-others-on-fail --names backend,react,vue,angular,npm --prefix-colors blue,cyan,green,yellow,magenta \"npm:dev:backend\" \"npm:dev:react:client\" \"npm:dev:vue:client\" \"npm:dev:angular:client\" \"npm:dev:npm:client\"",
+    "dev:backend": "cross-env ASPNETCORE_ENVIRONMENT=Development dotnet watch run --no-launch-profile --urls http://127.0.0.1:5079",
+    "dev:react:client": "npm run dev --workspace @aspose/gridjs-react-dotnet-demo",
+    "dev:vue:client": "npm run dev --workspace @aspose/gridjs-vue-dotnet-demo",
+    "dev:angular:client": "npm run dev --workspace @aspose/gridjs-angular-dotnet-demo",
+    "dev:npm:client": "npm run dev --workspace @aspose/gridjs-vanilla-dotnet-demo",
+    "dev:react": "concurrently --kill-others-on-fail --names backend,react --prefix-colors blue,cyan \"npm:dev:backend\" \"npm:dev:react:client\"",
+    "dev:vue": "concurrently --kill-others-on-fail --names backend,vue --prefix-colors blue,green \"npm:dev:backend\" \"npm:dev:vue:client\"",
+    "dev:angular": "concurrently --kill-others-on-fail --names backend,angular --prefix-colors blue,yellow \"npm:dev:backend\" \"npm:dev:angular:client\"",
+    "dev:npm": "concurrently --kill-others-on-fail --names backend,npm --prefix-colors blue,magenta \"npm:dev:backend\" \"npm:dev:npm:client\"",
+    "build": "npm run build --workspaces --if-present",
+    "serve": "cross-env ASPNETCORE_ENVIRONMENT=Production dotnet run --no-launch-profile --urls http://127.0.0.1:5079"
+  },
+  "devDependencies": {
+    "@angular/common": "22.0.8",
+    "@angular/core": "22.0.8",
+    "concurrently": "9.2.1",
+    "cross-env": "7.0.3"
+  },
+  "engines": {
+    "node": "^22.22.3 || ^24.15.0 || ^26.0.0"
+  }
+}

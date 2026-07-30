@@ -1,0 +1,12 @@
+{
+  "/GridJs": {
+    "target": "http://127.0.0.1:5079",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/GridJs2": {
+    "target": "http://127.0.0.1:5079",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

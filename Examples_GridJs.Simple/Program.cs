@@ -1,17 +1,20 @@
 // Program.cs
 using Aspose.Cells.GridJs;
 var builder = WebApplication.CreateBuilder(args);
+var gridJsCacheDirectory = Path.Combine(builder.Environment.ContentRootPath, "App_Data", "GridJsCache");
+var httpsRedirectionEnabled = builder.Configuration.GetValue("HttpsRedirection:Enabled", true);
+Directory.CreateDirectory(gridJsCacheDirectory);
 // Add MVC services
 builder.Services.AddControllersWithViews();
+builder.Services.AddHealthChecks();
 // ---------------------------------------------------------------------
 // GridJs service registration
 // ---------------------------------------------------------------------
 builder.Services.AddScoped<IGridJsService, GridJsService>();
 builder.Services.Configure<GridJsOptions>(options =>
 {
-    // • Directory where GridJs caches converted files.
-    //   Make sure the folder exists and the application has write permission.
-    options.FileCacheDirectory = @"D:\storage\Aspose.Cells.GridJs\";
+    // Keep the demo portable across Windows, macOS, and Linux.
+    options.FileCacheDirectory = gridJsCacheDirectory;
     // • Base route name for all GridJs actions (e.g. /GridJs/LoadSpreadsheet)
     options.BaseRouteName = "/GridJs";
 });
@@ -22,9 +25,13 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
+    if (httpsRedirectionEnabled)
+    {
+        app.UseHsts();
+        app.UseHttpsRedirection();
+    }
 }
-app.UseHttpsRedirection();
+app.UseDefaultFiles();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
@@ -32,4 +39,5 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapHealthChecks("/health");
 app.Run();

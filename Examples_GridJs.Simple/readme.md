@@ -7,9 +7,290 @@
 This article demonstrates how to **load an Excel workbook into a web page** using the **Aspose.Cells.GridJs** library on the server side and the **gridjs‑spreadsheet** JavaScript library on the client side.  
 You will create a **.NET 6 MVC** application, configure the Aspose.Cells.GridJs service, implement a controller that returns the workbook JSON, and write the client‑side HTML/JavaScript that renders the spreadsheet and enables server‑side updates.
 
+## Run all framework examples
+
+The project includes four npm-based client examples that share this ASP.NET Core backend:
+
+| Client | Development URL | npm import |
+|---|---|---|
+| React | `http://127.0.0.1:5183` | `gridjs-spreadsheet/react` |
+| Vue 3 | `http://127.0.0.1:5174` | `gridjs-spreadsheet/vue` |
+| Angular | `http://127.0.0.1:4200` | `gridjs-spreadsheet/angular` |
+| JavaScript | `http://127.0.0.1:5175` | `gridjs-spreadsheet` |
+
+Requirements:
+
+- .NET 6 SDK or newer
+- Node.js 26 (recommended), Node.js 24.15.0+, or Node.js 22.22.3+
+- npm
+
+From `Examples_GridJs.Simple`, run one command:
+
+```bash
+npm start
+```
+
+The first run installs all workspace dependencies, then starts the .NET backend and all four frontend development servers. Open `http://127.0.0.1:5079` to choose an example. Press `Ctrl+C` once to stop all processes.
+
+After dependencies are installed, use `npm run dev` for faster startup. To run only one client with the backend:
+
+```bash
+npm run dev:react
+npm run dev:vue
+npm run dev:angular
+npm run dev:npm
+```
+
+To build the four clients into `wwwroot/demos` and serve them from ASP.NET Core:
+
+```bash
+npm run build
+npm run serve
+```
+
+The framework adapters in `gridjs-spreadsheet` 26.7.1 use `/GridJs2` by default, so this project includes a compatibility controller for those actions. The original Razor example continues to use `/GridJs`.
+
+## Run with Docker
+
+Docker builds all four npm clients and publishes the ASP.NET Core application into one runtime image. Node.js and the .NET SDK are used only in the build stages and are not included in the final runtime image.
+
+### What you need
+
+For the Docker workflow, the host machine only needs:
+
+- Docker Desktop, or Docker Engine
+- Docker Compose v2 (`docker compose`)
+- An internet connection during the first build to download base images, npm packages, and NuGet packages
+
+You do **not** need to install Node.js, npm, the .NET SDK, or Microsoft Excel on the host machine.
+
+Verify Docker before starting:
+
+```bash
+docker --version
+docker compose version
+```
+
+### Start everything with one command
+
+Open a terminal in the project directory:
+
+```bash
+cd Examples_GridJs.Simple
+docker compose up --build
+```
+
+This command performs the complete workflow:
+
+1. Installs the npm workspace dependencies with `npm ci`.
+2. Builds the React, Vue, Angular, and JavaScript npm examples.
+3. Restores and publishes the ASP.NET Core application.
+4. Creates the final Linux runtime image.
+5. Creates the GridJs cache volume.
+6. Starts the application on port `8080`.
+
+The first build can take several minutes because Docker must download the base images and dependencies. Later builds reuse Docker's cache.
+
+Keep this terminal open while the application is running. Press `Ctrl+C` to stop the foreground process.
+
+### Open the examples
+
+After the container starts, open the launcher:
+
+<http://localhost:8080>
+
+All clients and server APIs are served by the same container and origin:
+
+| Page | URL |
+|---|---|
+| Framework launcher | <http://localhost:8080/> |
+| Razor + CDN example | <http://localhost:8080/GridJs/Index> |
+| React example | <http://localhost:8080/demos/react/> |
+| Vue example | <http://localhost:8080/demos/vue/> |
+| Angular example | <http://localhost:8080/demos/angular/> |
+| JavaScript npm example | <http://localhost:8080/demos/npm/> |
+| Container health check | <http://localhost:8080/health> |
+
+Each spreadsheet example opens the same `wwwroot/files/Sample.xlsx` workbook. A successful load shows the `Product List`, `Catalog`, and `Sales` worksheets.
+
+### Run in the background
+
+The recommended command for normal use is:
+
+```bash
+docker compose up --build --detach
+```
+
+Check whether the container is running and healthy:
+
+```bash
+docker compose ps
+```
+
+The status should contain `Up` and `healthy`. You can also check the health endpoint:
+
+```bash
+curl http://localhost:8080/health
+```
+
+Follow the application logs:
+
+```bash
+docker compose logs --follow gridjs-simple
+```
+
+Press `Ctrl+C` to stop following the logs; this does not stop the container.
+
+### Stop, start, or restart
+
+Stop the container without removing it:
+
+```bash
+docker compose stop
+```
+
+Start the existing stopped container:
+
+```bash
+docker compose start
+```
+
+Restart the application:
+
+```bash
+docker compose restart gridjs-simple
+```
+
+Stop and remove the container and its Compose network:
+
+```bash
+docker compose down
+```
+
+`docker compose down` does not delete the GridJs cache volume.
+
+### Rebuild after changing the source
+
+After changing the .NET code, framework examples, npm dependencies, or workbook files, rebuild and recreate the container:
+
+```bash
+docker compose up --build --detach
+```
+
+If Docker is using stale build output, perform a clean image build:
+
+```bash
+docker compose build --no-cache
+docker compose up --detach
+```
+
+### Use another port
+
+Port `8080` is the default. On macOS or Linux, set `GRIDJS_PORT` before starting:
+
+```bash
+GRIDJS_PORT=8090 docker compose up --build --detach
+```
+
+Then open <http://localhost:8090>.
+
+In Windows PowerShell:
+
+```powershell
+$env:GRIDJS_PORT = "8090"
+docker compose up --build --detach
+```
+
+### GridJs cache persistence
+
+The named volume `gridjs-cache` is mounted at `/app/App_Data/GridJsCache` inside the container. GridJs uses this directory for workbook, image, and update-operation cache files.
+
+The volume survives:
+
+- Container restarts
+- `docker compose stop`
+- `docker compose down`
+- Image rebuilds
+
+To intentionally remove the container **and all GridJs cache data**, run:
+
+```bash
+docker compose down --volumes
+```
+
+Do not use `--volumes` if the cached workbook state must be preserved.
+
+### Docker architecture
+
+The image uses three build stages:
+
+1. `node:24-alpine` builds the four npm clients into `wwwroot/demos`.
+2. `mcr.microsoft.com/dotnet/sdk:6.0-jammy` publishes the ASP.NET Core project.
+3. `mcr.microsoft.com/dotnet/aspnet:6.0-jammy` runs the published application as the non-root `gridjs` user.
+
+The runtime image contains the Linux SkiaSharp native assets, `fontconfig`, and common fonts required for spreadsheet rendering. Only port `8080` is exposed.
+
+### Troubleshooting
+
+#### Port 8080 is already in use
+
+Start the container on another host port:
+
+```bash
+GRIDJS_PORT=8090 docker compose up --build --detach
+```
+
+#### The container is not healthy
+
+Inspect its status and recent logs:
+
+```bash
+docker compose ps
+docker compose logs --tail=200 gridjs-simple
+```
+
+The application must be able to write to `/app/App_Data/GridJsCache`, and <http://localhost:8080/health> must return `Healthy`.
+
+#### A framework page returns 404
+
+Make sure the URL ends with `/`, for example:
+
+```text
+http://localhost:8080/demos/react/
+```
+
+Then rebuild the image so the latest `wwwroot/demos` output is included:
+
+```bash
+docker compose up --build --detach
+```
+
+#### The first build cannot download an image or package
+
+The first build requires access to Docker Hub, Microsoft Container Registry, npm, and NuGet. Check the Docker Desktop proxy or network settings, then retry:
+
+```bash
+docker compose up --build --detach
+```
+
+Docker resumes from cached layers when possible.
+
+#### Reset the demo completely
+
+The following command deletes the container and the GridJs cache volume:
+
+```bash
+docker compose down --volumes
+```
+
+Start again with:
+
+```bash
+docker compose up --build --detach
+```
+
 > {{% alert color="primary" %}}
-> This guide assumes you have a working **.NET 6 SDK** and **Node.js** installed.  
-> All code snippets are self‑contained and can be compiled and run without modification (except for the file‑system paths that you may want to adjust).
+> The manual, non-Docker setup described below assumes that **.NET 6 SDK** and **Node.js** are installed on the host machine. The Docker workflow above does not require either tool on the host.
 > {{% /alert %}}
 
 ## Prerequisites
@@ -57,12 +338,15 @@ Edit **Program.cs** (or **Startup.cs** if you prefer the classic style) and add 
 ```csharp
 // Program.cs
 using Aspose.Cells.GridJs;
-using Aspose.Cells.GridJs.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
+var gridJsCacheDirectory = Path.Combine(builder.Environment.ContentRootPath, "App_Data", "GridJsCache");
+var httpsRedirectionEnabled = builder.Configuration.GetValue("HttpsRedirection:Enabled", true);
+Directory.CreateDirectory(gridJsCacheDirectory);
 
 // Add MVC services
 builder.Services.AddControllersWithViews();
+builder.Services.AddHealthChecks();
 
 // ---------------------------------------------------------------------
 // GridJs service registration
@@ -71,9 +355,8 @@ builder.Services.AddScoped<IGridJsService, GridJsService>();
 
 builder.Services.Configure<GridJsOptions>(options =>
 {
-    // • Directory where GridJs caches converted files.
-    //   Make sure the folder exists and the application has write permission.
-    options.FileCacheDirectory = @"D:\storage\Aspose.Cells.GridJs\";
+    // Portable cache path for Windows, macOS, and Linux.
+    options.FileCacheDirectory = gridJsCacheDirectory;
 
     // • Base route name for all GridJs actions (e.g. /GridJs/LoadSpreadsheet)
     options.BaseRouteName = "/GridJs";
@@ -87,9 +370,13 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
+    if (httpsRedirectionEnabled)
+    {
+        app.UseHsts();
+        app.UseHttpsRedirection();
+    }
 }
-app.UseHttpsRedirection();
+app.UseDefaultFiles();
 app.UseStaticFiles();
 
 app.UseRouting();
@@ -101,11 +388,12 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+app.MapHealthChecks("/health");
 app.Run();
 ```
 
 > {{% alert color="primary" %}}
-> **Important** – The folder `D:\storage\Aspose.Cells.GridJs\` must exist before you run the application, otherwise GridJs will throw a `DirectoryNotFoundException`.
+> The example creates `App_Data/GridJsCache` automatically. The application process must have write permission to that directory.
 > {{% /alert %}}
 
 ### 3. Implement the GridJs Controller
@@ -382,7 +670,7 @@ function loadWithOption(jsondata) {
 ## Common Issues & Tips
 
 {{% alert color="primary" %}}
-- **Cache directory missing** – Ensure the path set in `GridJsOptions.FileCacheDirectory` exists and the app pool identity can write to it.  
+- **Cache directory unavailable** – Ensure the application can create and write to `App_Data/GridJsCache`.
 - **CORS errors** – When hosting the client and server on different origins, enable CORS in `Program.cs`.  
 - **Large files** – GridJs converts the workbook to JSON in memory; for very large files consider increasing the server memory limit or using pagination features of the library.  
 {{% /alert %}}

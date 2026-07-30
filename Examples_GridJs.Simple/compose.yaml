@@ -1,0 +1,18 @@
+services:
+  gridjs-simple:
+    image: aspose-cells-gridjs-simple:local
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${GRIDJS_PORT:-8080}:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:8080
+      HttpsRedirection__Enabled: "false"
+    volumes:
+      - gridjs-cache:/app/App_Data/GridJsCache
+    restart: unless-stopped
+
+volumes:
+  gridjs-cache:

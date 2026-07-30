@@ -1,8 +1,60 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment HostEnvironment
+@{
+    ViewData["Title"] = "Framework examples";
+    var development = HostEnvironment.EnvironmentName == "Development";
+    var examples = new[]
+    {
+        new { Name = "React", Mark = "R", Detail = "Component wrapper with React lifecycle cleanup and events.", Dev = "http://127.0.0.1:5183", Prod = "/demos/react/" },
+        new { Name = "Vue 3", Mark = "V", Detail = "Composition API example using the published Vue adapter.", Dev = "http://127.0.0.1:5174", Prod = "/demos/vue/" },
+        new { Name = "Angular", Mark = "A", Detail = "Standalone Angular component with the GridJS adapter.", Dev = "http://127.0.0.1:4200", Prod = "/demos/angular/" },
+        new { Name = "JavaScript + npm", Mark = "JS", Detail = "Direct Spreadsheet import without a framework wrapper.", Dev = "http://127.0.0.1:5175", Prod = "/demos/npm/" }
+    };
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="hero" aria-labelledby="page-title">
+    <div>
+        <p class="eyebrow">ASP.NET Core · GridJS · npm</p>
+        <h1 id="page-title">One backend.<br />Four client integrations.</h1>
+        <p class="hero__copy">Each example opens the same <code>Sample.xlsx</code> workbook and uses the same server-side GridJS operations, so the framework differences stay easy to compare.</p>
+    </div>
+    <aside class="run-note" aria-label="Current runtime mode">
+        <span class="run-note__label">Current mode</span>
+        <strong>@(development ? "Development servers" : "Built static demos")</strong>
+        <p>@(development ? "npm run dev starts every URL listed below." : "ASP.NET Core serves every demo from /demos.")</p>
+        <code>@(development ? "npm start" : "npm run build · npm run serve")</code>
+    </aside>
+</section>
+
+<section class="examples-section" aria-labelledby="examples-title">
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">Choose a client</p>
+            <h2 id="examples-title">Framework examples</h2>
+        </div>
+        <span class="environment-chip">@(development ? "DEV" : "PROD")</span>
+    </div>
+
+    <div class="demo-grid">
+        @foreach (var example in examples)
+        {
+            var url = development ? example.Dev : example.Prod;
+            <a class="demo-card" href="@url">
+                <span class="demo-card__mark" aria-hidden="true">@example.Mark</span>
+                <span class="demo-card__content">
+                    <strong>@example.Name</strong>
+                    <span>@example.Detail</span>
+                </span>
+                <span class="demo-card__arrow" aria-hidden="true">↗</span>
+            </a>
+        }
+    </div>
+</section>
+
+<section class="legacy-demo" aria-labelledby="legacy-title">
+    <div>
+        <p class="eyebrow">Baseline</p>
+        <h2 id="legacy-title">Razor + CDN example</h2>
+        <p>The original server-rendered example remains available for regression checks and comparison with npm imports.</p>
+    </div>
+    <a class="secondary-link" asp-controller="GridJs" asp-action="Index">Open Razor demo <span aria-hidden="true">→</span></a>
+</section>

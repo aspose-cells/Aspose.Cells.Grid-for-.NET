@@ -8,6 +8,7 @@
   <ItemGroup>
     <PackageReference Include="Aspose.Cells" Version="26.*" />
     <PackageReference Include="Aspose.Cells.GridJs" Version="26.*" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="2.88.9" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 	<PackageReference Include="Microsoft.Extensions.Options" Version="8.0" />
   </ItemGroup>
