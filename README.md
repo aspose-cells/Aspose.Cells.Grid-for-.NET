@@ -28,6 +28,7 @@ Directory | Description
 --------- | -----------
 [Example of Simple GridJs](Examples_GridJs.Simple)  |example that help you learn and use Aspose.Cells.GridJs to build .NET Core web application of Excel editor based on canvas rendering with simple and tiny code. 
 [Examples of GridJs](Examples_GridJs)  |example that help you learn and use Aspose.Cells.GridJs to build .NET Core web application of Excel editor based on canvas rendering with more features. 
+[Example of Redaction GridJs](Examples_GridJs.Redaction)  |example that help you learn and use Aspose.Cells.GridJs with redaction feature. 
 [Examples of GridDesktop](Examples_GridDesktop)  |example that help you learn and use Aspose.Cells.GridDesktop to build .NET desktop application of Excel editor.
 [Examples of GridWeb](Examples_GridWeb)  |example that help you learn and use Aspose.Cells.GridWeb to build Asp .NET/.NET Core web application of Excel editor based on html dom. 
  
