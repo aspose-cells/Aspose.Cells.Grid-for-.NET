@@ -194,10 +194,3 @@ formulas as ordinary workbook content.
 - .NET 8 reached end of support in November 2026. It remains the minimum for this stack because of
   SkiaSharp's wasm assets; moving to a supported target framework is a separate follow-up.
 
-## License
-
-The demo code in this repository is MIT — see [LICENSE](LICENSE). Third-party components and their
-licenses are listed in [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
-
-Aspose.Cells and Aspose.Cells.GridJs are commercial products under the Aspose End-User License
-Agreement. They are restored from nuget.org at build time and are not redistributed here.

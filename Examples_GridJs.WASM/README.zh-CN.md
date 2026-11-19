@@ -179,10 +179,3 @@ tools/serve.py               静态服务器，MIME 正确且不缓存
 - .NET 8 已于 2026 年 11 月停止支持。由于 SkiaSharp 的 wasm 资源，它仍是本栈的最低版本；迁移到
   受支持的 TFM 是独立的后续决定。
 
-## 许可证
-
-本仓库的 demo 代码为 MIT —— 见 [LICENSE](LICENSE)。第三方组件及其许可证列在
-[THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)。
-
-Aspose.Cells 与 Aspose.Cells.GridJs 是 Aspose 最终用户许可协议下的商业产品，构建时从 nuget.org
-还原，本仓库不再分发。
