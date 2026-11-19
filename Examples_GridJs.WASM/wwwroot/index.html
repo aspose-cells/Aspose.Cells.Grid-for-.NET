@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Aspose.Cells.GridJs WASM demo</title>
+    <base href="/" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="https://unpkg.com/gridjs-spreadsheet/xspreadsheet.css">
+    <link rel="stylesheet" href="css/demo.css">
+
+    <script src="https://unpkg.com/jszip@3.10.1/dist/jszip.min.js"></script>
+    <script src="https://unpkg.com/gridjs-spreadsheet/xspreadsheet.js"></script>
+    <script src="js/gridjs-opfs.js"></script>
+    <script src="js/gridjs-wasm-init.js"></script>
+</head>
+
+<body>
+    <header class="bar">
+        <span class="title">Aspose.Cells.GridJs WASM demo</span>
+        <span class="actions">
+            <span id="status" class="status">starting the engine...</span>
+            <label class="upload" id="upload-label">
+                upload
+                <input type="file" id="upload-input" accept=".xlsx,.xls,.xlsm,.csv" />
+            </label>
+        </span>
+    </header>
+
+    <div id="gridjs-demo"></div>
+
+    <script src="_framework/blazor.webassembly.js" autostart="false"></script>
+    <script src="js/demo.js"></script>
+</body>
+
+</html>

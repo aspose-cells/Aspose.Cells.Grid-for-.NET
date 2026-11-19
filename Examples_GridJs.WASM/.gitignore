@@ -1,0 +1,11 @@
+bin/
+obj/
+publish/
+wwwroot/license/*.lic
+wwwroot/license/*.lic.enc
+*.user
+.vs/
+.idea/
+.DS_Store
+__pycache__/
+*.pyc

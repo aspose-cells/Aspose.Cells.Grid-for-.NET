@@ -1,0 +1,58 @@
+html, body {
+    margin: 0;
+    height: 100%;
+    font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+    overflow: hidden;
+}
+
+.bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 44px;
+    padding: 0 12px;
+    box-sizing: border-box;
+    background: #f7f7f7;
+    border-bottom: 1px solid #d6d5d5;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.bar .title {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.status {
+    color: #777;
+    font-size: 12px;
+}
+
+.upload {
+    cursor: pointer;
+    background: #1b6ec2;
+    color: #fff;
+    border-radius: 3px;
+    padding: 4px 12px;
+    font-size: 13px;
+}
+
+    .upload input {
+        display: none;
+    }
+
+    .upload.disabled {
+        opacity: .5;
+        pointer-events: none;
+    }
+
+#gridjs-demo {
+    height: calc(100vh - 44px);
+}

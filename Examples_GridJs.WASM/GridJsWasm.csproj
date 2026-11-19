@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <AsposeVersion>26.11.0</AsposeVersion>
+    <SkiaSharpVersion>4.154.0</SkiaSharpVersion>
+    <!-- SkiaSharp 4.154's own targets set WasmBuildNative=true and add libSkiaSharp.a
+         (3.1.34/st,simd), so native linking no longer needs AOT the way it did on net6.
+         AOT stays on because that is the configuration this demo was measured under. -->
+    <RunAOTCompilation>true</RunAOTCompilation>
+    <PublishTrimmed>true</PublishTrimmed>
+    <SuppressTrimAnalysisWarnings>true</SuppressTrimAnalysisWarnings>
+    <!-- The packaged Aspose.Cells.GridJs references Mvc.Core, so the Razor SDK's MVC app-part
+         discovery emits [assembly: ApplicationPartAttribute("Aspose.Cells.GridJs")]. That type
+         does not exist in the 2.x Mvc.Core package line, so it cannot compile - and a browser
+         client has no ApplicationPartManager to read it anyway. -->
+    <GenerateMvcApplicationPartsAssemblyAttributes>false</GenerateMvcApplicationPartsAssemblyAttributes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspose.Cells" Version="$(AsposeVersion)" />
+    <PackageReference Include="Aspose.Cells.GridJs" Version="$(AsposeVersion)" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.34" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.34" PrivateAssets="all" />
+    <!-- IGridJsService/GridJsService expose IFormFileCollection in their signatures. -->
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="SkiaSharp" Version="$(SkiaSharpVersion)" />
+    <!-- Adds the libSkiaSharp.a NativeFileReference itself, choosing the emscripten ABI and the
+         threading/SIMD variant from the TFM. Requires net8.0+: Aspose.Cells 26.11 needs SkiaSharp
+         4.154.0, whose wasm natives ship no archive for the emscripten 2.0.23 that net6.0 links with. -->
+    <PackageReference Include="SkiaSharp.NativeAssets.WebAssembly" Version="$(SkiaSharpVersion)" />
+  </ItemGroup>
+
+</Project>
