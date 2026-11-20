@@ -5,6 +5,7 @@
 CDN 加载，文件存放在浏览器的 Origin Private File System（OPFS）。
 
 English documentation: [README.md](README.md)
+· 与服务端版的实测对比：[BENCHMARK.md](BENCHMARK.md)（英文）
 
 ---
 
@@ -132,6 +133,7 @@ wwwroot/js/gridjs-wasm-init.js  .NET 引导、setWasmMode、挂载 x-spreadsheet
 wwwroot/data/                SampleExcel.xlsx（默认）、chart.xlsx（图表示例）
 wwwroot/license/README.txt   自有 .lic 的放置位置；该目录不含任何授权
 tools/serve.py               静态服务器，MIME 正确且不缓存
+tools/bench/                 BENCHMARK.md 使用的 CDP 测试脚本：驱动、注入钩子、进程内存采样
 ```
 
 样例工作簿不含个人数据：入库前把作者字段以及 Excel 写进 `xl/workbook.xml` 的保存位置属性都
@@ -172,7 +174,8 @@ tools/serve.py               静态服务器，MIME 正确且不缓存
 ## 已知限制
 
 - 大工作簿在浏览器内解析，存在内存溢出风险：wasm 内存区有限且与运行时共用。
-- 首次加载与写入单元格比服务端版更慢，内存占用也更高。
+- 首次加载与写入单元格比服务端版更慢，内存占用也更高——[BENCHMARK.md](BENCHMARK.md) 的实测是
+  首次渲染慢 2.9~5.4 倍，同一工作簿的 JS 堆内存高 10~13 倍。
 - 缓存键取文件名的**前 48 个字符**，共享 48 字符前缀的两个文件名会共用同一个缓存槽。
 - 裁剪开启且 `SuppressTrimAnalysisWarnings=true`，所以 interop POCO 与泛型实例的存活是**人工
   验证**的，不靠编译器警告。

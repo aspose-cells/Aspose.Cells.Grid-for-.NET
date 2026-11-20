@@ -6,6 +6,7 @@ inside an AOT-compiled Blazor WebAssembly app; the grid client is loaded from a 
 persist in the browser's Origin Private File System (OPFS).
 
 中文文档：[README.zh-CN.md](README.zh-CN.md)
+· Measured against the server-side edition: [BENCHMARK.md](BENCHMARK.md)
 
 ---
 
@@ -142,6 +143,7 @@ wwwroot/js/gridjs-wasm-init.js  .NET bootstrap, setWasmMode, mount x-spreadsheet
 wwwroot/data/                SampleExcel.xlsx (default), chart.xlsx (chart sample)
 wwwroot/license/README.txt   where to put your own .lic; the directory ships empty of licenses
 tools/serve.py               static server with correct MIME types and no-store
+tools/bench/                 CDP harness behind BENCHMARK.md: driver, hooks, process samplers
 ```
 
 The sample workbooks carry no personal data: the author fields and the saved-location attribute
@@ -186,7 +188,9 @@ formulas as ordinary workbook content.
 
 - Large workbooks are parsed in the browser and carry an out-of-memory risk: the wasm arena is
   finite and shared with the runtime.
-- First load and cell writes are slower than the server-side edition, and memory use is higher.
+- First load and cell writes are slower than the server-side edition, and memory use is higher —
+  measured in [BENCHMARK.md](BENCHMARK.md) at 2.9-5.4x to first render and 10-13x the JavaScript
+  heap for the same workbook.
 - Caching is keyed on the **first 48 characters** of the file name, so two names sharing a
   48-character stem share one cache slot.
 - Trimming is on with `SuppressTrimAnalysisWarnings=true`, so the survival of interop POCOs and
